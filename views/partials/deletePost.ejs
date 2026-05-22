@@ -1,43 +1,45 @@
 <script>
-    // Modal elements
-    const showModal = document.getElementById("delete-Modal");
-    const closeModal = document.getElementById("close-modal-button");
-    const deletePostBtns = document.querySelectorAll(".delete-post-btn");
-    const deleteForm = document.getElementById("delete-form");
-    const deletePostBtn = document.getElementById("delete-post-button");
+    document.addEventListener("DOMContentLoaded", () => {
+        // Modal elements
+        const showModal = document.getElementById("delete-Modal");
+        const closeModal = document.getElementById("close-modal-button");
+        const deletePostBtns = document.querySelectorAll(".delete-post-btn");
+        const deleteForm = document.getElementById("delete-form");
+        const deletePostBtn = document.getElementById("delete-post-button");
 
-    let postToDeleteId;
+        let postToDeleteId;
 
-    // Ensure modal doesn't block clicks when hidden
-    if (showModal) showModal.style.pointerEvents = "none";
+        // Ensure modal doesn't block clicks when hidden
+        if (showModal) showModal.style.pointerEvents = "none";
 
-    deletePostBtns.forEach(btn => {
-        btn.addEventListener("click", () => {
-            showModal.style.display = "flex";
-            showModal.style.pointerEvents = "auto"; // enable clicks
-            postToDeleteId = btn.dataset.id;
-            deleteForm.action = `/deletePost/${postToDeleteId}`;
-        })
-    });
-
-    if (deletePostBtn) {
-        deletePostBtn.addEventListener("click", () => {
-            deleteForm.submit();
+        deletePostBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                showModal.style.display = "flex";
+                showModal.style.pointerEvents = "auto"; // enable clicks
+                postToDeleteId = btn.dataset.id;
+                deleteForm.action = `/deletePost/${postToDeleteId}`;
+            })
         });
-    }
 
-    if (closeModal) {
-        closeModal.addEventListener("click", () => {
-            showModal.style.display = "none";
-            showModal.style.pointerEvents = "none"; // disable clicks
-        });
-    }
-
-    // Close modal with ESC key
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && showModal.style.display === "flex") {
-            showModal.style.display = "none";
-            showModal.style.pointerEvents = "none"; // disable clicks
+        if (deletePostBtn) {
+            deletePostBtn.addEventListener("click", () => {
+                deleteForm.submit();
+            });
         }
+
+        if (closeModal) {
+            closeModal.addEventListener("click", () => {
+                showModal.style.display = "none";
+                showModal.style.pointerEvents = "none"; // disable clicks
+            });
+        }
+
+        // Close modal with ESC key
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "Escape" && showModal.style.display === "flex") {
+                showModal.style.display = "none";
+                showModal.style.pointerEvents = "none"; // disable clicks
+            }
+        });
     });
 </script>
