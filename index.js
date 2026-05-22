@@ -13,7 +13,7 @@ const posts = [
     id: 1,
     title: "My soft-rock buddy",
     content:
-      "I can't get hyped enough for a run without Kimi ga Suki da to Sakebitai playing in my ears 🏀",
+      "I can't get hyped enough for a run without 'Kimi ga Suki da to Sakebitai' playing in my ears 🏀",
     name: "Coco",
     country: "Japan",
     flag: "🇯🇵",
