@@ -1,0 +1,39 @@
+<%- include("partials/header") %>
+
+    <section class="post-card edit-post-card">
+        <h2>Edit</h2>
+        <form action="/updatePost/<%= editedPost.id %>" method="POST">
+            <div class="form-row">
+                <div class="form-group name-country">
+                    <label for="name">Name:</label>
+                    <input type="text" name="name" id="name" value="<%= editedPost.name %>" required />
+                </div>
+                <div class="form-group name-country">
+                    <label for="country">Country:</label>
+                    <select name="country" id="country" required>
+                        <option value="" disabled selected>--- Select your country ---</option>
+                        <% countries.forEach(c=> { %>
+                            <option value="<%= c.name %>" <% if(c.name===editedPost.country) { %> selected <% } %>>
+                                    <%= c.name %>
+                                        <%= c.flag %>
+                            </option>
+                            <% }) %>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group title-content">
+                <label for="title">Title:</label>
+                <input type="text" name="title" id="title" value="<%= editedPost.title %>" required />
+            </div>
+
+            <div class="form-group title-content">
+                <label for="content">Content:</label>
+                <textarea name="content" id="content" required><%= editedPost.content %></textarea>
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </section>
+
+    <%- include("partials/footer") %>

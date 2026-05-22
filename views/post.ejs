@@ -1,0 +1,34 @@
+<%- include("partials/header") %>
+    <div class="fullpost-container">
+        <article class="post">
+            <h2>
+                <%= post.title %>
+            </h2>
+            <p>
+                <%= post.content %>
+            </p>
+            <div class="post-metadata-wrapper">
+                <p class="name-flag">
+                    <span class="name">
+                        <%= post.name %>
+                    </span>
+                    <span class="flag" title="<%= post.country %>">
+                        <%= post.flag %>
+                    </span>
+                </p>
+                <div class="date-and-buttons">
+                    <span class="date-text">
+                        Posted on:
+                        <span class="date"
+                            data-date="<%= post.updatedAt.getTime() > post.createdAt.getTime() ? post.updatedAt : post.createdAt %>"></span>
+                    </span>
+                    <div class="edit-delete-btns">
+                        <a href="/editPost/<%= post.id %>" class="edit-post-btn">✏️</a>
+                        <button type="button" data-id="<%= post.id %>" class="delete-post-btn">🗑️</button>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <%- include("partials/footer") %>

@@ -1,0 +1,103 @@
+<%- include("partials/header") %>
+
+    <div class="header-logo">
+        <img src="/images/starburst.svg" class="starburst-bg" />
+        <h1>🤘🏻<span class="blog-you">YOU</span> <span class="blog-rock">ROCK</span> <span
+                class="blog-blog">blog</span>🤘🏻
+        </h1>
+    </div>
+
+    <%
+        function truncateText(text, limit) {
+        if (text.length <=limit) return text;
+        let truncated=text.slice(0, limit);
+        truncated=truncated.slice(0, truncated.lastIndexOf(" ")); // cut at last space
+        return truncated + " ...";
+        }
+        %>
+
+        <section class="posts-wrapper">
+            <% posts.forEach(post=> { %>
+                <article class="post">
+                    <h2>
+                        <%= post.title %>
+                    </h2>
+                    <p>
+                        <%= truncateText(post.content, 150) %>
+                    </p>
+                    <% if (post.content.length> 150) { %>
+                        <a href="/fullPost/<%= post.id %>" class="read-more-link">Read More...</a>
+                        <% } %>
+                            <div class="post-metadata-wrapper">
+                                <p class="name-flag">
+                                    <span class="name">
+                                        <%= post.name %>
+                                    </span>
+                                    <span class="flag" title="<%= post.country %>">
+                                        <%= post.flag %>
+                                    </span>
+                                </p>
+                                <div class="date-and-buttons">
+                                    <span class="date-text">
+                                        Posted on:
+                                        <span class="date"
+                                            data-date="<%= post.updatedAt.getTime() > post.createdAt.getTime() ? post.updatedAt : post.createdAt %>"></span>
+                                    </span>
+                                    <div class="edit-delete-btns">
+                                        <a href="/editPost/<%= post.id %>" class="edit-post-btn"
+                                            aria-label="Edit this post">✏️</a>
+                                        <button type="button" data-id="<%= post.id %>" class="delete-post-btn"
+                                            aria-label="Delete this post">🗑️</button>
+                                    </div>
+                                </div>
+                            </div>
+                </article>
+                <% }) %>
+        </section>
+
+        <section id="new-post" class="post-card">
+            <h2>Write yours !</h2>
+            <form action="/create" method="POST">
+                <div class="form-row">
+                    <div class="form-group name-country">
+                        <label for="name">Name:</label>
+                        <input type="text" name="name" id="name" required />
+                    </div>
+                    <div class="form-group name-country">
+                        <label for="country">Country:</label>
+                        <select name="country" id="country" required>
+                            <option value="" disabled selected>--- Select your country ---</option>
+                            <% countries.forEach(c=> { %>
+                                <option value="<%= c.name %>">
+                                    <%= c.name %>
+                                        <%= c.flag %>
+                                </option>
+                                <% }) %>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group title-content">
+                    <label for="title">Title:</label>
+                    <input type="text" name="title" id="title" required />
+                </div>
+                <div class="form-group title-content">
+                    <label for="content">Content:</label>
+                    <textarea name="content" id="content" required></textarea>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+
+        <div id="delete-Modal" class="overlay-modal"> <!-- For ESC key -->
+            <div class="modal-content">
+                <p>Are you sure you want to delete this post?</p>
+                <div class="modal-buttons">
+                    <form id="delete-form" method="POST" action="">
+                        <button type="button" id="delete-post-button">Yes</button>
+                    </form>
+                    <button type="button" id="close-modal-button">No</button>
+                </div>
+            </div>
+        </div>
+
+        <%- include("partials/footer") %>

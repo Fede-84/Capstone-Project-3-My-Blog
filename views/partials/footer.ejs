@@ -1,0 +1,55 @@
+<a href="#new-post" class="floating-post-button" aria-label="Create a new post" title="Create a new post">✍🏻</a>
+
+<footer class="site-footer">
+    <p>&copy; 2026 &nbsp;Friky17 &nbsp;All rights reserved.</p>
+</footer>
+
+<script>
+    // Format all post dates
+    document.querySelectorAll(".date").forEach(span => {
+        const date = new Date(span.dataset.date);
+        span.textContent = date.toLocaleDateString(navigator.language);
+    });
+
+    // Modal elements
+    const showModal = document.getElementById("delete-Modal");
+    const closeModal = document.getElementById("close-modal-button");
+    const deletePostBtns = document.querySelectorAll(".delete-post-btn");
+    const deleteForm = document.getElementById("delete-form");
+    const deletePostBtn = document.getElementById("delete-post-button");
+
+    let postToDeleteId;
+
+    // Ensure modal doesn't block clicks when hidden
+    if (showModal) showModal.style.pointerEvents = "none";
+
+    deletePostBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+            showModal.style.display = "flex";
+            showModal.style.pointerEvents = "auto"; // enable clicks
+            postToDeleteId = btn.dataset.id;
+            deleteForm.action = `/deletePost/${postToDeleteId}`;
+        })
+    });
+
+    if (deletePostBtn) {
+        deletePostBtn.addEventListener("click", () => {
+            deleteForm.submit();
+        });
+    }
+
+    if (closeModal) {
+        closeModal.addEventListener("click", () => {
+            showModal.style.display = "none";
+            showModal.style.pointerEvents = "none"; // disable clicks
+        });
+    }
+
+    // Close modal with ESC key
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && showModal.style.display === "flex") {
+            showModal.style.display = "none";
+            showModal.style.pointerEvents = "none"; // disable clicks
+        }
+    });
+</script>
