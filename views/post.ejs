@@ -31,5 +31,18 @@
         </article>
     </div>
 
+    <!-- Delete Modal (copy exactly from index.ejs) -->
+    <div id="delete-Modal" class="overlay-modal">
+        <div class="modal-content">
+            <p>Are you sure you want to delete this post?</p>
+            <div class="modal-buttons">
+                <form id="delete-form" method="POST" action="">
+                    <button type="button" id="delete-post-button">Yes</button>
+                </form>
+                <button type="button" id="close-modal-button">No</button>
+            </div>
+        </div>
+    </div>
+
     <%- include("partials/dateFormatter") %>
         <%- include("partials/deletePost") %>
